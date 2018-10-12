@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>瑞丽</title>
+	<script src="jquery.min.js"></script>
+	<style>
+		*{ margin: 0; padding: 0;}
+		ul{ list-style: none;}
+		h3{ font-weight: normal;}
+		a{ text-decoration: none; display: inline-block;}
+		img{ vertical-align: middle; width: 100%; height: 100%;}
+		input{ border: none; outline: none; background-color: transparent;}
+		.clearfix:after{ content: ""; clear: both; display: block; }
+		.clearfix{*zoom:1;}
+		.box{width: 960px; margin: 0 auto; font-size: 12px; font-family: "微软雅黑"; margin-bottom: 100px;}
+		.sort{ width: 580px; height: 32px; line-height: 32px; padding: 0 5px; float: right;}
+		.sort a{ color: #423E3F; padding: 0 12px;}
+		.sort a.col{ color: #FF0103; }
+		.logo{ width: 100%; height: 80px;}
+		nav{ height: 37px; padding-left: 5px;}
+		nav a{ padding: 0 10px; border-right: 1px solid #750073; color: #000; height: 12px; margin-top: 13px; line-height: 12px;}
+		nav a:last-child{ border-right: none;}
+		nav a.hot{ color: #FF0066; position: relative;}
+		nav a.hot img{ width: 23px; height: 11px; position: absolute; right: 0; top: -11px;}
+		.title{ height: 28px; width: 100%;}
+		.title .leftTitle{ width: 50%; background-color: #E2E2E2; float: left; height: 28px;}
+		.title a{ color:#000100; margin-top: 8px; height: 12px; line-height: 12px; }
+		.title .leftTitle a{ padding: 0 10px; border-right: 1px solid #680064;}
+		.title .leftTitle a:last-child{ border-right: none;}
+		.title .rightTitle{ width: 50%; background-color: #CACACA; float: right; height: 28px;}
+		.title .rightTitle a{ padding: 0 11px;}
+		.user{ height:31px; line-height: 31px; background-color: #4A4A4A; color: white; padding-left: 15px; font-size: 0; margin-bottom: 7px;}
+		.user input[type="text"]{ height: 18px; background-color: #BBBBBB; margin: 0 5px; font-size: 12px; width: 72px;}
+		.user a,.user span{ font-size: 12px; color: white;}
+		input[type="button"]{ background-color: #CACACA; width: 40px; text-align: center; border-radius: 3px; margin: 0 9px;}
+		.user input.search{ width: 290px;}
+		.user .btn{ background: url("icon.jpg") no-repeat left center; margin-left: 9px; padding-left: 22px;}
+		.user .index{ margin-left: 40px;}
+		.cont .up .left{ width: 750px; float: left;}
+		.cont .up .leftBox{ width:430px; padding: 4px 6px; border: 1px solid #D9D4D1; float: left;}
+		.cont .up .leftBox .tw{ height: 84px; background-color: #F2F2F2; margin-bottom: 8px;}
+		.cont .up .leftBox .tw a{ width: 93px; height: 84px; float: left;}
+		.cont .up .leftBox .tw .desc{ width: 296px; float: right; padding:6px 14px;}
+		.cont .up .leftBox .tw .desc h3{ font-size: 14px; font-weight: 600; height:28px; line-height: 28px; text-align: center;}
+		.cont .up .leftBox .tw .desc p{ line-height: 22px; text-indent: 2em;}
+		.cont .up .leftBox .list{ border-bottom: 1px solid #D9D4D1; margin: 0 -6px; padding:0 0 6px 6px;}
+		.cont .up .list li{ width: 50%; line-height: 24px; height: 24px; float: left;}
+		.cont .up .list li a{ background: url("point.jpg") no-repeat left center; padding-left: 7px; color: #454442;}
+		.cont .up .leftBox .empty{ height: 62px; padding-top: 7px; text-align: center; border-bottom: 1px solid #D9D4D1; margin: 0 -6px;}
+		.cont .up .leftBox .ad{ width: 434px; height: 59px; margin: 5px 0 3px;}
+		.cont .up .rightBox { width: 293px; padding: 4px 6px 0; float: right; border: 1px solid #D9D4D1; border-left: none;}
+		.cont .up .rightBox .pic{ width: 294px; height: 398px; position: relative;}
+		.cont .up .rightBox .pic span{ position: absolute; left: 0; bottom: 0; width: 100%; height: 37px ; line-height: 37px; color: white; text-align: center; background-color: rgba(0,0,0,.5); font-size: 15px; font-weight: bold; cursor: pointer;}
+		.cont .up .rightBox .imgList{ height: 53px; background-color: #000; padding: 1px 6px;}
+		.cont .up .rightBox .imgList li{ width:40px; float: left; }
+		.cont .up .rightBox .imgList li a{ width: 36px;height: 49px; border: 2px solid transparent;}
+		.cont .up .rightBox .imgList li a img{ opacity: .5; filter:alpha(opacity=50);}
+		.cont .up .rightBox .imgList li a:hover,.cont .up .rightBox .imgList li a.active{ border-color: #C7C3C4;}
+		.cont .up .rightBox .imgList li a:hover img,.cont .up .rightBox .imgList li a.active img{ opacity: 1;}
+		.cont .up .rightBox .list{ padding:5px 0; border: none; background-color: #3E3E3E;}
+		.cont .up .rightBox .list a{ color: #D8D8D6; background-position: 5px; padding-left: 8px; }
+		.cont .up .rightBox .list a.col{ color: #F3A050;}
+		.cont .up .right{ width: 201px; float: right;}
+		.cont .up .right .tag{ height: 30px; margin-right: -5px;}
+		.cont .up .right .tag li{ float: left; margin-right: 5px; height: 30px;}
+		.cont .up .right .tag li a{ padding: 0 5px; line-height: 28px; height: 28px; border: 1px solid #B2A7AB; border-bottom: none; background-color: #F6EFE9; color: #40291B;}
+		.cont .up .right .tag li a:hover,.cont .up .right .tag li a.active{ color: white; background-color: #A89992;}
+		.cont .up .right .content{ padding: 9px 6px 6px; border:1px solid #D9D4D1; margin-top: -1px;}
+		.cont .up .right .content h3{ height: 20px; line-height: 20px; text-align: center; font-weight: 600;}
+		.cont .up .right .cont .top{ padding: 2px 0; border-bottom: 1px solid #D9D4D1; margin:-6px; padding-left: 6px;}
+		.cont .up .right .content .top li{ height: 22px ; line-height: 22px;}
+		.cont .up .right .content .top li span{ display: inline-block; width: 12px; height: 12px; line-height: 12px; text-align: center; background-color: #F86300; color: white; margin-right: 4px;}
+		.cont .up .right .content .top li a{ color: #3F413E;}
+		.cont .up .right .content .other{ padding: 8px 0;}
+		.cont .up .right .content .other li{ height: 22px; line-height: 22px; background: url("point.jpg") no-repeat left center; padding-left: 15px;}
+		.cont .up .right .content .other li a{ color: #444243;}
+		.cont .up .right .content .img{ width: 187px;height: 210px; position: relative;}
+		.cont .up .right .content .img span{ position: absolute; left: 0; bottom: 0; background-color: rgba(0,0,0,.5); height: 20px; line-height: 20px; padding-left: 62px;}
+		.cont .up .right .content .img span em{ font-style: normal; width: 24px; text-align: center; float: left; border-left: 1px solid white; color: white; cursor: pointer;}
+		.cont .up .right .content .img span em:hover,.cont .up .right .content .img span em.active{ color: #F3823E;}
+		.cont .gl{ height: 28px; line-height: 28px;}
+		.cont .midF .left{ width: 282px; border:1px solid #D9D4D0; float: left;}
+		.cont .midF h3{ margin:2px; background-color: #D9D4D0; color: #F82D5A; padding-left: 12px; height: 19px; line-height: 19px; }
+		.cont .mid1 .left .rl{ padding: 10px 7px 10px 17px; border-top: 1px solid #D9D4D0;}
+		.cont .mid1 .left .rl .img{ width: 127px; height: 162px; float: left;}
+		.cont .mid1 .left .rl .aboutRl{ width: 114px; float: right;}
+		.cont .mid1 .left .rl .aboutRl p{ line-height: 18px;}
+		.cont .mid1 .left .rl .aboutRl a{ height: 19px; line-height: 19px; background: url("point1.jpg") no-repeat left center; padding-left: 12px; color: #413F42;}
+		.cont .midF .mid{ width:457px; float: left; margin: 0 7px; border:1px solid #D9D4D0; }
+		.cont .mid1 .mid .nav{ height: 22px; line-height: 22px; border-bottom:1px solid #D9D4D0;}
+		.cont .mid1 .mid .nav span{ display: inline-block; width: 138px; text-align: center;}
+		.cont .mid1 .mid .nav a{ padding: 0 13px; background-color: #F6EFE7; color: #483026; border-left: 1px solid #D9D4D1; height: 22px;}
+		.cont .mid1 .mid .nav a.more{ padding:0 16px; text-decoration: underline; position: relative;}
+		.cont .mid1 .mid .nav a.more em{ position: absolute; width: 0; height: 0; overflow: hidden; border-width: 3px; border-color: transparent transparent transparent #000; border-style: dashed dashed dashed solid; right: 4px; top: 9px;}
+		.cont .mid1 .mid .tw{ padding: 12px 7px; margin-right: -13px;}
+		.cont .mid1 .mid .tw li{ float: left; margin-right: 13px; width: 139px;}
+		.cont .mid1 .mid .tw li p{ line-height: 18px; margin-top: 5px; cursor: pointer;}
+		.cont .mid1 .mid .tw li p:hover,.cont .mid1 .mid .tw li p.active{ text-decoration: underline; color: #BC0070;}
+		.cont .midF .right{ width: 197px; float: right; border: 1px solid #D8D4D1;}
+		.cont .mid1 .right a{ width: 197px; height: 180px; border-top: 1px solid #D8D4D1;}
+		.cont .mid2 h3 a{ float: right; color: #483026; padding-right: 11px; position: relative; text-decoration: underline; color: #473123; font-weight: normal; font-size: 12px;}
+		.cont .mid2 h3 a em{ position: absolute; width: 0; height: 0; overflow: hidden; border-width: 3px; border-color: transparent transparent transparent #000; border-style: dashed dashed dashed solid; right: 4px; top: 9px;}
+		.cont .mid2 .left .ds{ padding: 10px;  border-top: 1px solid #D9D4D1;}
+		.cont .mid2 .left .ds .tw .img{ width: 76px; height: 99px; float: left;}
+		.cont .mid2 .left .ds .tw .desc{ width: 173px; float: right;}
+		.cont .mid2 .left .ds .tw .desc p{ line-height: 18px; margin-bottom: 9px;}
+		.cont .mid2 .left .ds .tw .desc a{ width: 68px; height: 20px; line-height: 20px; color: #444444; text-align: center; border: 1px solid #D6D6D6; box-shadow: 0 0 5px 0 #D6D6D6; border-radius: 0 0 5px 5px; margin-right: 18px; background: url("bg.jpg") repeat-x left center;}
+		.cont .mid2 .left .ds .sort1{ margin: 6px 0 2px; line-height: 16px;}
+		.cont .mid2 .left .ds .sort1 span{ color: #434345; font-weight: 600;}
+		.cont .mid2 .left .ds .sort1 a{ margin-right: 12px; color: #444341;}
+		.cont .mid2 .left .ds .tp{ width: 80px; height: 18px; border: 1px solid #C83A0A; color: white; line-height: 18px ; text-align: center; background: url("bg2.jpg") repeat-x left center; margin-left: 83px;}
+		.cont .mid2 .mid h3 span{ background: url("hot1.jpg") no-repeat right center; padding-right: 26px; color: #000;}
+		.cont .mid2 .mid .list1{ height: 95px; padding: 10px 16px 23px 14px;  border-top: 1px solid #D9D4D1;}
+		.cont .mid2 .mid .list1 li{ float: left; width: 50%; height: 95px;}
+		.cont .mid2 .mid .list1 li .img{ width: 95px; height: 95px; float: left;}
+		.cont .mid2 .mid .list1 li .desc{ width: 100px; float: left; margin-left: 14px;}
+		.cont .mid2 .mid .list1 li .desc span{ color: #E53C01; height: 20px; line-height: 20px; display: inline-block; font-weight: 600;}
+		.cont .mid2 .mid .list1 li .desc p{ line-height: 20px; text-indent: 2em;}
+		.cont .mid2 .mid .list2{ padding: 0 24px 7px;}
+		.cont .mid2 .mid .list2 li{ width: 50%; float: left; height: 20px; line-height: 20px;}
+		.cont .mid2 .mid .list2 li a{ background: url("point.jpg") no-repeat 5px center; padding-left: 7px; color: #444540;}
+		.cont .mid2 .right .mag{ padding: 5px 9px 5px 5px; height: 166px; border-top: 1px solid #D9D4D1;}
+		.cont .mid2 .right .mag .act{ width: 57px; float: left;}
+		.cont .mid2.right .mag .act .magazine{ padding: 7px 0 5px 4px; border-bottom: 1px solid #8E8E8E; position: relative; margin-right: 2px;}
+		.cont .mid2 .right .mag .act .magazine em{ position: absolute; width: 0; height: 0; overflow: hidden; border-width: 4px; border-color: transparent transparent transparent #474145 ; border-style: dashed dashed dashed solid; left: 0px; bottom: -4px;}
+		.cont .mid2 .right .mag .act .magazine a{ margin-bottom: 17px; color: #474145;}
+		.cont .mid2 .mag .act .btn{ width: 42px; height: 15px; border: 1px solid #A9A9A9; line-height: 15px; text-align: center; background-color: #E6E2DF; color: #434240; margin: 6px 0 0px 7px;}
+		.cont .mid2 .right .mag .act .download{ margin: 30px 0 0 7px;}
+		.cont .mid2 .right .mag .img{ float: right; width: 126px; height: 166px;}
+		.cont .midS{ margin-top: 10px;}
+		.cont .midS .left{ width: 238px; float: left;}
+		.cont .midS .left .fash{ width: 238px; height: 67px;}
+		.cont .midS .left .img{ width: 226px; padding: 4px 5px; border-left: 1px solid #D9D4D0; border-right: 1px solid #D9D4D0;}
+		.cont .midS .left .imgP{ width: 224px; height:283px; border: 1px solid #020001; } 
+		.cont .midS .left .index{ width: 226px; height: 20px; line-height: 20px; background-color: #343434;}
+		.cont .midS.midS .left .index a{ height: 20px; line-height: 20px; border-left: 1px solid #6E6E6E; color: white; padding: 0 9px; float: right;}
+		.cont .midS .left .index a.col,.cont .mid3 .left .index a:hover{ color: #F38F43;}
+		.cont .midS .left .listL{  background-color: #AD8973; }
+		.cont .midS .left .listL a{ background: url("bg1.jpg") no-repeat 38px center; padding-left: 43px; color: white;}
+		.cont .midS .left .listL .first{ height: 26px; line-height: 26px; background-color: #8C6249; display: block;}
+		.cont .midS .left .listL ul{ padding: 13px 0 8px;}
+		.cont .midS .left .listL ul li{ height: 22px; line-height: 22px;}
+		.cont .midS .mid{ width: 498px; border: 1px solid #D9D4D1; float: left; margin: 0 6px;}
+		.cont .midS .mid .nav{ margin: 1px; height: 26px; background: url("bg3.jpg") repeat-x left top; line-height: 26px; padding-left: 12px;}
+		.cont .midS .mid .nav a{ padding: 0 10px; border-right: 1px solid #8A705F; height: 12px; line-height: 12px; color: #473426;}
+		.cont .midS em{ float: right; font-style: normal; padding-right: 10px; position: relative; text-decoration: underline; cursor: pointer;}
+		.cont .midS em i{ width: 0 ; height: 0; overflow: hidden; border-width: 3px; border-style: dashed dashed dashed solid ; border-color: transparent transparent transparent #000; right: 0px; top: 12px; position: absolute;}
+		.cont .midS .mid .content{ padding: 3px 5px 7px;}
+		.cont .mid3 .mid .content .list1{ padding: 7px 0 6px 18px;}
+		.cont .mid3 .mid .content .list1 li{ float: left; width: 50%; height: 26px; line-height: 26px;}
+		.cont .mid3 .mid .content .list1 li a{ color: #434341; background: url("point.jpg") no-repeat left center; padding-left: 4px;}
+		.cont .mid3 .mid .content .bottom .leftBox{ width: 327px;  float: left;}
+		.cont .mid3 .mid .content .bottom .title1{ height: 20px; line-height: 20px; background-color: #E0D5CF;  padding: 0 4px 0 24px; margin-bottom: 7px;}
+		.cont .mid3 .mid .content .bottom .title1 span{ color: #493127; font-weight: 600;}
+		.cont .midS .mid .content .bottom .list2{ background: url("bg4.jpg") repeat-x left center; height: 134px; width: 247px; float: left; margin-top: 8px;}
+		.cont .midS .mid .content .bottom .list2 li{ height: 22px;line-height: 22px;}
+		.cont .midS .mid .content .bottom .list2 li a{ background: url("point.jpg") no-repeat 18px center ; padding-left: 22px; color: #434343;}
+		.cont .mid3 .mid .content .bottom .tw{ width: 75px; float: right;}
+		.cont .mid3 .mid .content .bottom .tw a{ width: 75px; height: 120px;}
+		.cont .mid3 .mid .content .bottom .tw span{ display: inline-block; width: 75px; height: 17px; background-color: #B5927C; line-height: 17px; text-align: center; margin-top: 3px; color: white;}
+		.cont .mid3 .mid .content .bottom .rightBox{ width: 155px; float: right;}
+		.cont .mid3 .mid .content .bottom .rightBox .tw{ width: 155px;}
+		.cont .mid3 .mid .content .bottom .rightBox .tw .l{ float: left; width: 75px;}
+		.cont .mid3 .mid .content .bottom .rightBox .tw .r{ float: right; width: 75px;}
+		.cont .midS .right{ width: 206px; float: right; border:1px solid #D9D4D1; padding: 0 1px;}
+		.cont .mid3 .right .fl{ margin: 2px 0; padding-left:24px; background-color: #F8F4EB;}
+		.cont .mid3 .right .fl p{ height: 20px; line-height: 20px;}
+		.cont .mid3 .right .fl p a{ padding: 0 5px; border-left: 1px solid #853E84; color: #3F3E3C; height: 12px; line-height: 12px;}
+		.cont .mid3 .right .sp{ margin-right: -6px;}
+		.cont .mid3 .right .sp li{ width: 99px; float: left; margin-right: 6px;}
+		.cont .mid3 .right .sp li a{ width: 99px; height: 112px; margin-bottom: 3px;}
+		.cont .mid3 .right .sp li span{ display: block; height: 24px; line-height: 24px; background-color: #F8F3ED; text-align: center; color: #42413F;}
+		.cont .mid3 .right .list{ margin: 14px 0 92px;}
+		.cont .mid3 .right .list li{ height: 22px; line-height: 22px;}
+		.cont .mid3 .right .list li a{ background: url("point.jpg") no-repeat left center; padding-left: 5px; color: #434345;}
+		.cont .mid4 { margin: 0 0 10px;}
+		.cont .mid4 .left .imgP{ border:none;}
+		.cont .mid4 .left .listL{ background-color: #BE93AE;}
+		.cont .mid4 .left .listL .first{ background-color: #B17098;}
+		.cont .mid4 .mid .nav{ background: url('bg5.jpg') repeat-x left top;}
+		.cont .mid4 .mid .content .twList{padding: 9px 0 11px 25px;}
+		.cont .mid4 .mid .content .twList li{ width: 25%; float: left;}
+		.cont .mid4 .mid .content .twList li a{ width: 84px; height: 63px; padding: 3px; border:1px solid #D8D5D0; margin-bottom: 10px;}
+		.cont .mid4 .mid .content .adList{ padding: 0 0 6px 18px;}
+		.cont .mid4 .mid .content .adList li{ height: 26px; line-height: 26px; width: 50% ; float: left;}
+		.cont .mid4 .mid .content .adList li a{ background: url("point.jpg") no-repeat left center; padding-left: 5px; color: #474340;}
+		.cont .mid4 .mid .content .bottom .title2{ height:20px; line-height: 20px; background-color:  #E3CDDA ; color: #813865; padding: 0 11px 0 24px;}
+		.cont .mid4 .mid .content .bottom .title2 a{ color: #813865; margin-left:169px;}
+		.cont .mid4 .mid .content .bottom .listImg{ float: right; width: 231px; margin-top: 5px;}
+		.cont .mid4 .mid .content .bottom .listImg li{ width: 50%; float: left;}
+		.cont .mid4 .mid .content .bottom .listImg li a{ width: 113px; height: 122px;}
+		.cont .mid4 .mid .content .bottom .listImg li p{ width: 113px; height: 25px; line-height: 25px; margin-top: 3px ; text-align: center; color: white; background-color: #CEA8BF;}
+		.cont .mid4 .right h3{ height: 26px; line-height: 26px; background-color: #EBDCE3; padding-left:12px; color: #803965; margin: 1px; }
+		.cont .mid4 .right .ct{ margin:2px 3px 6px 4px; padding: 8px; background-color: #F6EDF2;}
+		.cont .mid4 .right  .ct span{ color: #444444; font-weight: 600; margin-bottom: 4px;}
+		.cont .mid4 .right  .ct a{ height: 22px; line-height: 22px; padding: 0 6px; color: #494544;}
+		.cont .mid5 .left{ width: 238px; float: left;}
+		.cont .mid4 .mid .nav{ background: url('bg6.jpg') repeat-x left top; background-color: #BAD7DF;}
+		.cont .mid4 .mid .content .bottom .title2{  background-color: #BAD7DF; color: #144A64; margin-bottom: 5px;}
+		.cont .mid5 .mid .content .bottom .list2{ background: url("bg7.jpg") repeat-x left center; height: 143px; }
+		.cont .mid5 .mid .content .bottom .pic{ width: 236px; float: right; margin-bottom: 4px;}
+		.cont .mid5 .mid .content .bottom .pic a{ width: 236px; height:125px; margin-bottom: 3px;}
+		.cont .mid5 .mid .content .bottom .pic p{ height: 25px; line-height: 25px; color: #33609B; background-color: #B7D3DE; text-align: center;}
+		.cont .mid5 .right h3{ height: 26px; line-height: 26px; background-color: #D8E7EC; padding: 0 10px; font-size: 12px;}
+		.cont .mid5 .right h3 span{ float: left; color: #134B66; }
+		.cont .mid5 .right h3 a{ float: right; position: relative; color: #164964; text-decoration: underline;}
+		.cont .mid5 .right h3 em{ position: absolute; width: 0; height: 0; overflow: hidden; border-width: 3px; border-color: transparent transparent transparent #000; border-style: dashed dashed dashed solid; right: -20px; top: 12px;}
+		.cont .mid5 .right .top .list{ height: 138px; background: url("bg8.jpg") repeat-x left top; padding-left:11px; margin-top: 6px; }
+		.cont .mid5 .right .top .list li{ height: 22px; line-height: 22px;}
+		.cont .mid5 .right .top .list li a{ background: url("point.jpg") no-repeat left center; padding-left: 5px; color: #653F66;}
+		.cont .mid5 .right .ign{ margin: 8px 0 11px; text-align: center;}
+		.cont .mid5 .right .down ul{ background-color: #EAF4F6;}
+		.cont .mid5 .right .down .list1{ margin-top: 4px;  padding-left:11px; }
+		.cont .mid5 .right .down .list1 li{ height: 22px; line-height: 22px;}
+		.cont .mid5 .right .down .list1 li a{ background: url("point.jpg") no-repeat left center; padding-left: 5px; color: #653F66;}
+		.cont .mid5 .right .down .list2{ padding-left: 7px;}
+		.cont .mid5 .right .down .list2 li{ width: 50%; float: left;}
+		.cont .mid5 .right .down .list2 li a{ width: 90px; height: 65px;}
+		.cont .mid5 .right .down .list2 li p{ height: 23px; line-height: 23px;}
+		.cont .mid6 .left{ width: 477px; float: left; border: 1px solid #D9D4D0;}
+		.cont .mid6 .nav1{ height: 26px; line-height: 26px; background-color: #AFDAAF; padding:0 11px 0 15px; margin: 1px; color: #20521D;}
+		.cont .mid6 .nav1 span{font-weight: 600; margin-right: 13px;}
+		.cont .mid6 .nav1 a{ padding: 0 11px; height: 12px; line-height: 12px; border-right: 1px solid #73B172; color: #20521D; }
+		.cont .mid6 .nav1 em{ font-style: normal; float: right; position: relative;}
+		.cont .mid6 .nav1 em i{ width: 0; height: 0; overflow: hidden; border-width: 3px; border-color: transparent transparent transparent #000; border-style: dashed dashed dashed solid; position: absolute; right: -10px; top: 12px;}
+		.cont .mid6 .left .leftBox{ width: 232px; float: left; padding: 6px;}
+		.cont .mid6 .left .leftBox .img{ width: 232px; height: 153px;}
+		.cont .mid6 .left .leftBox .ads{background-color: #A8D6A8; }
+		.cont .mid6 .left .leftBox .ads p{ background-color: #64A966; height: 26px ; line-height: 26px;}
+		.cont .mid6 .left .leftBox .ads p a{ color: white;}
+		.cont .mid6 .left .leftBox .ad{ background: url("point.jpg") no-repeat 38px center; padding-left: 43px; color: #20531B; height: 22px; line-height: 22px;}
+		.cont .mid6 .left .leftBox .ads .ad1{ padding-top: 6px;}
+		.cont .mid6 .left .leftBox .ads .ad2{ padding-bottom: 6px;}
+		.cont .mid6 .left .rightBox{ width: 216px; float: right;}
+		.cont .mid6 .left .rightBox h3{ margin-top: 3px; height: 42px; line-height: 42px; color: #1D541B; text-align: center;}
+		.cont .mid6 .left .rightBox .ssList li{ height: 24px; line-height: 24px;}
+		.cont .mid6 .left .rightBox .ssList li a{ background: url(point.jpg) no-repeat left center ; padding-left: 5px; color: #464241;} 
+		.cont .mid6 .right{ width: 473px; float: right; border:1px solid #D8D5D0;}
+		.cont .mid6 .right .leftBox{ width:218px; float: left; padding:4px 6px;}
+		.cont .mid6 .right .leftBox .img{ width: 218px; height: 139px;}
+		.cont .mid6 .right .leftBox p{ height: 34px; line-height: 34px; text-align: center; color: #413F40;}
+		.cont .mid6 .right .leftBox .ysList li{ height: 22px; line-height: 22px; }
+		.cont .mid6 .right .leftBox .ysList li a{ background: url("point.jpg") no-repeat left center; padding-left: 5px; color: #20521D; }
+		.cont .mid6 .right .rightBox{ width: 218px; float: right;}
+		.cont .mid6 .right .rightBox .allList li{ height: 24px; line-height: 24px;}
+		.cont .mid6 .right .rightBox .allList li a{ background: url("point.jpg") no-repeat left center ; padding-left: 5px; color: #444444;}
+		.cont .mid7{ margin-top: 13px;}
+		.cont .mid7 .nav1{ background:url("bg9.jpg") repeat-x left center;}
+		.cont .mid7 .left .leftBox .ads p{ background-color: #AAA07D; text-align: left;}
+		.cont .mid7 .left .leftBox .ads{ background-color: #E4DECE;}
+		.cont .mid7 .mid{ width: 233px; float: left; margin: 0 5px; border: 1px solid #D9D4D1;}
+		.cont .mid7.img{ padding: 8px 0 4px 11px; width: 215px; height: 102px;}
+		.cont .mid7 p{ height: 34px; line-height: 34px; text-align: center; color:#444243; }
+		.cont .mid7  .lifeList{ padding: 0 0 5px 11px;}
+		.cont .mid7 .lifeList li{ height: 24px; line-height: 24px;}
+		.cont .mid7 .lifeList li a{ color: #444243; background: url("point.jpg") no-repeat left center; padding-left: 5px;}
+		.cont .mid7 .right{ width: 234px; float: right; border: 1px solid #D9D4D1;}
+		.cont .mid8 .right .dc{ padding: 6px 37px 0 18px;}
+		.cont .mid8 .right .ques{ line-height: 18px; text-align: left;}
+		.cont .mid8 .right p{ line-height: 22px; margin-bottom: 10px;}
+		.cont .mid8 .right a{width: 11px; height: 11px; border: 1px solid #144A64; margin-right:7px;}
+		.cont .mid8 .right .dc div{ height: 13px; line-height: 13px; margin-bottom: 9px;}
+		.cont .mid8 .right .dc input[type='text']{ width:122px; height: 19px; border: 1px solid #B4B3B8; }
+		.cont .mid8 .right .dc label{ display: block; margin-top: -19px; padding-left: 5px; margin-bottom: 10px;}
+		.cont .mid8 .right .dc input[type='button']{ background: url("bg10.jpg") repeat-x left top; height: 35px; height: 18px; line-height: 18px; text-align: center; border: 1px solid #575757; color: #010101; margin-bottom: 50px;}
+	</style>
+</head>
+<body>
+	<div class="box clearfix">
+		<div class="sort">
+			<a href="javascript:;" class="col">美容大赏</a><a href="javascript:;" class="col">封面女孩大赛</a><a href="javascript:;">瑞丽俱乐部</a><a href="javascript:;">瑞丽阳光基金</a><a href="javascript:;">瑞丽专属模特</a><a href="javascript:;">榜样OL</a><a href="javascript:;">潮流之旅</a>
+		</div>
+		<a href="javascript:;" class="logo"><img src="logo.jpg" alt=""></a>
+		<nav>
+			<a href="javaxscr:;">首页</a><a href="javaxscr:;" class="hot">服饰<img src="hot.jpg" alt=""></a><a href="javaxscr:;">奢品</a><a
+			 href="javaxscr:;" class="hot">美容<img src="hot.jpg" alt=""></a><a href="javaxscr:;" class="hot">家居<img src="hot.jpg" alt=""></a><a href="javaxscr:;">情感</a><a href="javaxscr:;">旅行</a><a href="javaxscr:;">新娘</a><a href="javaxscr:;">情调</a><a href="javaxscr:;">健康</a><a href="javaxscr:;">美体</a><a href="javaxscr:;">美食</a><a href="javaxscr:;">星座</a><a href="javaxscr:;">娱乐</a><a href="javaxscr:;">模特</a><a href="javaxscr:;">型男</a><a href="javaxscr:;">格调</a><a href="javaxscr:;">职场</a><a href="javaxscr:;">母婴</a><a href="javaxscr:;">测试</a><a href="javaxscr:;">专题</a>
+		</nav>
+		<div class="title">
+			<div class="leftTitle">
+				<a href="javascript:;">博客</a><a href="javascript:;">论坛</a><a href="javascript:;">朋友圈</a><a href="javascript:;">瑞丽之星</a><a href="javascript:;">试用</a><a href="javascript:;">手机阅读</a><a href="javascript:;">电子杂志</a><a href="javascript:;">视频专区</a>
+			</div>
+			<div class="rightTitle">
+				<a href="javascript:;">《瑞丽服饰美容》</a><a href="javascript:;">《瑞丽伊人风尚》</a><a href="javascript:;">《瑞丽时尚先锋》</a><a href="javascript:;">《瑞丽家居设计》</a>
+			</div>
+		</div>
+		<div class="user">
+			<span>用户名</span>
+			<input type="text">
+			<span>密码</span>
+			<input type="text">
+			<a href="javascript:;">找回密码</a>
+			<input type="button" value="登录">
+			<input type="button" value="注册">
+			<input type="text" class="search">
+			<input type="button" value="搜索">
+			<a href="javascript:;" class="btn index">设为首页</a>
+			<a href="javascript:;" class="btn">网站地图</a>
+		</div>
+		<div class="cont">
+			<div class="up clearfix">
+				<div class="left clearfix">
+					<div class="leftBox">
+						<div class="tw">
+							<a href="javascript:;"><img src="beauty1.jpg" alt=""></a>
+							<div class="desc">
+								<h3>追踪2010艳夏最潮"蕾丝控"</h3>
+								<p>在2010春夏蕾丝大潮的洗礼下如何智慧穿搭才能不落俗套？来看看瑞丽为你准备的深度剖析吧……</p>
+							</div>
+						</div>
+						<ul class="list clearfix">
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+							<li><a href="javascript:;">夏日运动装穿出潮女性感味</a></li>
+						</ul>
+						<div class="empty">被过滤广告</div>
+						<a href="javascript:;" class="ad"><img src="ad.jpg" alt=""></a>
+						<ul class="list clearfix" style="border:none;">
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+						</ul>
+					</div>
+					<div class="rightBox">
+						<a href="javascript:;" class="pic"><img src="rightPic.jpg" alt=""><span>瑞丽之星24小时造型计划第一季</span></a>
+						<ul class="imgList">
+							<li><a href="javascript:;"><img src="beauty2.jpg" alt=""></a></li>
+							<li><a href="javascript:;"><img src="beauty2.jpg" alt=""></a></li>
+							<li><a href="javascript:;"><img src="beauty2.jpg" alt=""></a></li>
+							<li><a href="javascript:;" class="active"><img src="beauty2.jpg" alt=""></a></li>
+							<li><a href="javascript:;"><img src="beauty2.jpg" alt=""></a></li>
+							<li><a href="javascript:;"><img src="beauty2.jpg" alt=""></a></li>
+							<li><a href="javascript:;"><img src="beauty2.jpg" alt=""></a></li>
+						</ul>
+						<ul class="list clearfix">
+							<li><a href="javascript:;" class="col">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;" class="col">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;" class="col">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;" class="col">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;">瑞丽美容大赏第二季</a></li>
+							<li><a href="javascript:;">瑞丽美容大赏第二季</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="right">
+					<ul class="tag">
+						<li><a href="javascript:;" class="active">服饰</a></li>
+						<li><a href="javascript:;">美容</a></li>
+						<li><a href="javascript:;">家居</a></li>
+						<li><a href="javascript:;">生活</a></li>
+						<li><a href="javascript:;">测试</a></li>
+					</ul>
+					<div class="content">
+						<h3>热门排行TOP10</h3>
+						<ul class="top">
+							<li><span>1</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>2</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>3</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>4</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>5</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>6</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>7</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>8</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>9</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+							<li><span>10</span><a href="javascript:;">碎花添活力！潮女穿衣攻略</a></li>
+						</ul>
+						<ul class="other">
+							<li>被过滤广告</li>
+							<li>被过滤广告</li>
+							<li>被过滤广告</li>
+							<li>被过滤广告</li>
+							<li>被过滤广告</li>
+						</ul>
+						<a href="javascript:;" class="img"><img src="pic.jpg" alt=""><span><em class="active">1</em><em>2</em><em>3</em><em>4</em><em>5</em></span></a>
+					</div>
+				</div>
+			</div>
+			<p class="gl">被过滤广告</p>
+			<div class="midF mid1 clearfix"> 
+				<div class="left">
+					<h3>瑞丽杂志</h3>
+					<div class="rl clearfix">
+						<a href="javascript:;" class="img"><img src="pic1.jpg" alt=""></a>
+						<div class="aboutRl">
+							<p>《瑞丽时尚先锋》6月号于6月15日全国上市！</p>
+							<a href="javascript:;">希望你看透我！</a><br>
+							<a href="javascript:;">希望你看透我！</a><br>
+							<a href="javascript:;">希望你看透我！</a><br>
+							<a href="javascript:;">希望你看透我！</a><br>
+						</div>
+					</div>
+				</div>
+				<div class="mid">
+					<div class="nav">
+						<span>精彩专题</span><a href="javascript:;">服饰</a><a href="javascript:;">美容</a><a href="javascript:;">家居</a><a href="javascript:;">格调</a><a href="javascript:;">美体</a><a href="javascript:;" class="more">more<em></em></a>
+					</div>
+					<ul class="tw clearfix">
+						<li>
+							<a href="javascript:;"><img src="beauty3.jpg" alt=""></a>
+							<p>各种自然元素加入了本季彩妆主题，快来一睹为快吧！</p>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="beauty3.jpg" alt=""></a>
+							<p class="active">各种自然元素加入了本季彩妆主题，快来一睹为快吧！</p>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="beauty3.jpg" alt=""></a>
+							<p>各种自然元素加入了本季彩妆主题，快来一睹为快吧！</p>
+						</li>
+					</ul>
+				</div>
+				<div class="right">
+					<h3>封面女孩大赛</h3>
+					<a href="javascript:;"><img src="beauty4.jpg" alt=""></a>
+				</div>
+			</div>
+			<p class="gl">被过滤广告</p>
+			<div class="midF mid2 clearfix">
+				<div class="left">
+					<h3>瑞丽美容大赏2010<a href="javascript:;">more<em></em></a></h3>
+					<div class="ds">
+						<div class="tw clearfix">
+							<a href="javascript:;" class="img"><img src="beauty5.jpg" alt=""></a>
+							<div class="desc">
+								<p>瑞丽美容大赏2010第二季开始啦！只需对42类美妆品进行投票就有机会获得总价值60万元的重磅大礼品！快来投票吧！</p>
+								<a href="javascript:;">活动规则</a><a href="javascript:;" style="margin:0;">奖品介绍</a>
+							</div>
+						</div>
+						<p class="sort1"><span>我要投票：</span><a href="javascript:;">护肤专区</a><a href="javascript:;">彩妆专区</a><a href="javascript:;" style="margin-right:9px;">身体护理专区</a><a href="javascript:;">头发护理专区</a><a href="javascript:;">香氛专区</a></p>
+						<a href="javascript:;" class="tp">我要马上投票</a>
+					</div>
+				</div>
+				<div class="mid">
+					<h3><span>靓品点评</span><a href="javascript:;">more<em></em></a></h3>
+					<ul class="list1">
+						<li>
+							<a href="javascript:;" class="img"><img src="pic2.jpg" alt=""></a>
+							<div class="desc">
+								<span>养生堂天然维E</span>
+								<p>养生堂天然维E 内服美容 祛斑养颜 肌肤年轻</p>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;" class="img"><img src="pic3.jpg" alt=""></a>
+							<div class="desc">
+								<span>养生堂天然维E</span>
+								<p>养生堂天然维E 内服美容 祛斑养颜 肌肤年轻</p>
+							</div>
+						</li>
+					</ul>
+					<ul class="list2 clearfix">
+						<li><span>面膜</span><a href="javascript:;">兰芝睡眠面膜粉丝团开团啦！</a></li>
+						<li><span>试用</span><a href="javascript:;">娥佩兰新品隔离免费领</a></li>
+						<li><span>流行</span><a href="javascript:;">华美5月 夏至前的时尚预备GO</a></li>
+						<li><span>彩妆</span><a href="javascript:;">5月新品 自然主义彩妆登陆</a></li>
+					</ul>
+				</div>
+				<div class="right">
+					<h3 style="color:#473328;">瑞丽电子杂志<a href="javascript:;" class="more">more<em></em></a></h3>
+					<div class="mag">
+						<div class="act">
+							<div class="magazine">
+								<a href="javascript:;">瑞丽.裳</a><br><a href="javascript:;">瑞丽.妆</a><br><a href="javascript:;" style="margin-bottom:0;">瑞丽.家</a>
+								<em></em>
+							</div>
+							<a href="javascript:;" class="btn download">下载</a><br><a href="javascript:;" class="btn">预览</a>
+						</div>
+						<a href="javascript:;" class="img"><img src="pic4.jpg" alt=""></a>
+					</div>
+				</div>
+			</div>
+			<div class="midS mid3 clearfix">
+				<div class="left">
+					<a href="javascript:;" class="fash"><img src="pic5.jpg" alt=""></a>
+					<div class="img">
+						<a href="javascript:;" class="imgP"><img src="beauty6.jpg" alt=""></a>
+						<p class="index"><a href="javascript:;" class="col">3</a><a href="javascript:;">2</a><a href="javascript:;">1</a></p>
+					</div>
+					<div class="listL">
+						<a href="javascript:;" class="first">最流行骷髅图案仅售69元</a>
+						<ul>
+							<li><a href="javascript:;">潮女秘籍！2010春夏潮流密码</a></li>
+							<li><a href="javascript:;">人气派对装扮 变身惊艳女郎</a></li>
+							<li><a href="javascript:;">越穿越瘦？瑞模私家显瘦法</a></li>
+							<li><a href="javascript:;">瑞丽服饰网招聘实习生及兼职</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="mid">
+					<div class="nav"><a href="javascript:;">甜美</a><a href="javascript:;">先锋</a><a href="javascript:;">优雅</a><a href="javascript:;">明星</a><a href="javascript:;">街拍</a><a href="javascript:;">潮流单品</a><a href="javascript:;" style="border:none;">模特榜样</a><em>more<i></i></em>
+					</div>
+					<div class="content">
+						<img src="ad1.jpg" alt="">
+						<ul class="list1 clearfix"><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li><li><a href="javascript:;">留住女孩味！可爱糖果色搭配</a></li>
+						</ul>
+						<div class="bottom clearfix">
+							<div class="leftBox clearfix">
+								<div class="title1">
+									<span>搭配课堂</span><em>more<i></i></em>
+								</div>
+								<div class="leftBoxL">
+									<ul class="list2">
+										<li><a href="javascript:;">少女情怀 轻熟女晒韩范自拍</a></li>
+										<li><a href="javascript:;">少女情怀 轻熟女晒韩范自拍</a></li>
+										<li><a href="javascript:;">少女情怀 轻熟女晒韩范自拍</a></li>
+										<li><a href="javascript:;">少女情怀 轻熟女晒韩范自拍</a></li>
+										<li><a href="javascript:;">少女情怀 轻熟女晒韩范自拍</a></li>
+										<li><a href="javascript:;">少女情怀 轻熟女晒韩范自拍</a></li>
+									</ul>
+									<div class="tw">
+										<a href="javascript:;"><img src="beauty7.jpg" alt=""></a>
+										<span>森林系</span>
+									</div>
+								</div>
+							</div>
+							<div class="rightBox">
+								<div class="title1">
+									<span>潮流单品</span><em>more<i></i></em>
+								</div>
+								<div class="tw clearfix">
+									<div class="l">
+										<a href="javascript:;"><img src="beauty7.jpg" alt=""></a>
+										<span>森林系</span>
+									</div>
+									<div class="r">
+										<a href="javascript:;"><img src="beauty7.jpg" alt=""></a>
+										<span>森林系</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<img src="pic6.jpg" alt="">
+					<div class="fl">
+						<p><a href="javascript:;" style="border:none;">时尚资讯</a><a href="javascript:;">秀场直击</a><a href="javascript:;">流行趋势</a></p>
+						<p><a href="javascript:;" style="border:none;">明星Icon</a><a href="javascript:;">潮流单品</a><a href="javascript:;">时尚圈</a></p>
+					</div>
+					<ul class="sp clearfix">
+						<li>
+							<a href="javascript:;"><img src="bag.jpg" alt=""></a>
+							<span>10大It bags</span>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="beauty8.jpg" alt=""></a>
+							<span>Gucci的骑士服</span>
+						</li>
+					</ul>
+					<ul class="list">
+						<li><a href="javascript:;">2010夏季蕾丝诱惑持续蔓延</a></li>
+						<li><a href="javascript:;">2010夏季蕾丝诱惑持续蔓延</a></li>
+						<li><a href="javascript:;">2010夏季蕾丝诱惑持续蔓延</a></li>
+						<li><a href="javascript:;">2010夏季蕾丝诱惑持续蔓延</a></li>
+						<li><a href="javascript:;">2010夏季蕾丝诱惑持续蔓延</a></li>
+						<li><a href="javascript:;">2010夏季蕾丝诱惑持续蔓延</a></li>
+						<li><a href="javascript:;">2010夏季蕾丝诱惑持续蔓延</a></li>
+					</ul>
+				</div>
+			</div>
+			<p class="gl">被过滤广告</p>
+			<div class="midS mid4 clearfix">
+				<div class="left">
+					<a href="javascript:;" class="fash"><img src="pic7.jpg" alt=""></a>
+					<div class="img">
+						<a href="javascript:;" class="imgP"><img src="pic8.jpg" alt=""></a>
+						<p class="index"><a href="javascript:;" class="col">3</a><a href="javascript:;">2</a><a href="javascript:;">1</a></p>
+					</div>
+					<div class="listL">
+						<a href="javascript:;" class="first">最流行骷髅图案仅售69元</a>
+						<ul>
+							<li><a href="javascript:;">潮女秘籍！2010春夏潮流密码</a></li>
+							<li><a href="javascript:;">人气派对装扮 变身惊艳女郎</a></li>
+							<li><a href="javascript:;">越穿越瘦？瑞模私家显瘦法</a></li>
+							<li><a href="javascript:;">瑞丽服饰网招聘实习生及兼职</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="mid">
+					<div class="nav"><a href="javascript:;">甜美</a><a href="javascript:;">先锋</a><a href="javascript:;">优雅</a><a href="javascript:;">明星</a><a href="javascript:;">街拍</a><a href="javascript:;">潮流单品</a><a href="javascript:;" style="border:none;">模特榜样</a><em>more<i></i></em>
+					</div>
+					<div class="content">
+						<img src="ad2.jpg" alt="">
+						<ul class="twList clearfix">
+							<li>
+								<a href="javascript:;"><img src="beauty9.jpg" alt=""></a>
+								<p>夏季祛痘淡斑良品</p>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="beauty10.jpg" alt=""></a>
+								<p>未来3年美妆趋势</p>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="beauty11.jpg" alt=""></a>
+								<p>炎夏约会性格发型</p>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="beauty12.jpg" alt=""></a>
+								<p>性感舒淇小烟熏</p>
+							</li>
+						</ul>
+						<ul class="adList clearfix">
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+						</ul>
+						<div class="bottom">
+							<p class="title2"><span>最in单品测评</span><a href="javascript:;">精彩专题</a><em>more<i></i></em></p>
+							<ul class="list2">
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+							</ul>
+							<ul class="listImg clearfix">
+								<li>
+									<a href="javascript:;"><img src="beauty13.jpg" alt=""></a>
+									<p>倩碧水嫩保湿系列</p>
+								</li>
+								<li>
+									<a href="javascript:;"><img src="beauty13.jpg" alt=""></a>
+									<p>倩碧水嫩保湿系列</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<h3>最热搜索词</h3>
+					<div class="ct">
+						<span>美容Tag</span><br><a href="javascript:;">保湿</a><a href="javascript:;">美白</a><a href="javascript:;">美体</a><a href="javascript:;">药妆</a><a href="javascript:;">祛痘</a><a href="javascript:;">美甲</a><a href="javascript:;">香水</a><a href="javascript:;">粉底</a><a href="javascript:;">卸妆</a><a href="javascript:;">防晒</a><a href="javascript:;">祛斑</a><a href="javascript:;">抗敏感</a><a href="javascript:;">睫毛膏</a><a href="javascript:;">精华液</a><a href="javascript:;">潮流发型</a><a href="javascript:;">雅诗兰黛</a><a href="javascript:;">lancome</a>
+					</div>
+					<div class="ct">
+						<span>美容Tag</span><br><a href="javascript:;">保湿</a><a href="javascript:;">美白</a><a href="javascript:;">美体</a><a href="javascript:;">药妆</a><a href="javascript:;">祛痘</a><a href="javascript:;">美甲</a><a href="javascript:;">香水</a><a href="javascript:;">粉底</a><a href="javascript:;">卸妆</a><a href="javascript:;">防晒</a><a href="javascript:;">祛斑</a><a href="javascript:;">抗敏感</a><a href="javascript:;">睫毛膏</a><a href="javascript:;">精华液</a><a href="javascript:;">潮发型</a><a href="javascript:;">雅诗黛</a><a href="javascript:;">come</a><a href="javascript:;">精华液</a><a href="javascript:;">潮流型</a><a href="javascript:;">雅兰黛</a><a href="javascript:;">lancome</a>
+					</div>
+				</div>
+			</div>
+			<div class="midS mid4 mid5 clearfix">
+				<div class="left">
+					<img src="left.jpg" alt="">
+				</div>
+				<div class="mid">
+					<div class="nav"><a href="javascript:;">甜美</a><a href="javascript:;">先锋</a><a href="javascript:;">优雅</a><a href="javascript:;">明星</a><a href="javascript:;">街拍</a><a href="javascript:;">潮流单品</a><a href="javascript:;" style="border:none;">模特榜样</a><em>more<i></i></em>
+					</div>
+					<div class="content">
+						<img src="ad3.jpg" alt="">
+						<ul class="adList clearfix">
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+							<li><a href="javascript:;">打造娇艳欲滴的水果妆容</a></li>
+						</ul>
+						<div class="bottom">
+							<p class="title2">编辑推荐</p>
+							<ul class="list2">
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+								<li><a href="javascript:;">全球趣味美妆品TOP8</a></li>
+							</ul>
+							<div class="pic">
+								<a href="javascript:;"><img src="pic9.jpg" alt=""></a>
+								<p>56平超时尚婚房</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<div class="top">
+						<h3><span>装修手册</span><a href="javascript:;">more<em></em></a></h3>
+						<ul class="list">
+							<li><a href="javascript:;">多样彩色打造女人般灵动空间</a></li>
+							<li><a href="javascript:;">多样彩色打造女人般灵动空间</a></li>
+							<li><a href="javascript:;">多样彩色打造女人般灵动空间</a></li>
+							<li><a href="javascript:;">多样彩色打造女人般灵动空间</a></li>
+							<li><a href="javascript:;">多样彩色打造女人般灵动空间</a></li>
+							<li><a href="javascript:;">多样彩色打造女人般灵动空间</a></li>
+						</ul>
+					</div>
+					<p class="ign">被过滤广告</p>
+					<div class="down">
+						<h3><span>网友之家</span><a href="javascript:;">more<em></em></a></h3>
+						<ul class="list1">
+							<li><a href="javascript:;">时尚复式小两居 甜蜜样板</a></li>
+							<li><a href="javascript:;">时尚复式小两居 甜蜜样板</a></li>
+							<li><a href="javascript:;">时尚复式小两居 甜蜜样板</a></li>
+						</ul>
+						<ul class="list2 clearfix">
+							<li>
+								<a href="javascript:;"><img src="pic10.jpg" alt=""></a>
+								<p>二人甜蜜样板</p>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="pic10.jpg" alt=""></a>
+								<p>二人甜蜜样板</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="mid6 clearfix">
+				<div class="left clearfix">
+					<div class="nav1">
+						<span>美体瘦身</span><a href="javascript:;">塑身</a><a href="javascript:;">减肥</a><a href="javascript:;">美体</a><a href="javascript:;">健身</a><a href="javascript:;" style="border:none;">曲线</a><em>more<i></i></em>
+					</div>
+					<div class="leftBox">
+						<a href="javascript:;" class="img"><img src="beautys.jpg" alt=""></a>
+						<div class="ads">
+							<p><a href="javascript:;" class="ad">夏季宅女8步修炼完美身材</a></p>
+							<a href="javascript:;" class="ad ad1">夏季宅女8步修炼完美身材</a><br><a href="javascript:;" class="ad ad2">夏季宅女8步修炼完美身材</a>
+						</div>
+					</div>
+					<div class="rightBox">
+						<h3>瑞丽博客四周年大聚会（图）</h3>
+						<ul class="ssList">
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="right clearfix">
+					<div class="nav1">
+						<span>美体瘦身</span><a href="javascript:;">塑身</a><a href="javascript:;">减肥</a><a href="javascript:;">美体</a><a href="javascript:;">健身</a><a href="javascript:;" style="border:none;">曲线</a><em>more<i></i></em>
+					</div>
+					<div class="leftBox">
+						<a href="javascript:;" class="img"><img src="beauty14.jpg" alt=""></a>
+						<p>8个排毒妙招瘦身享轻松</p>
+						<ul class="ysList">
+							<li><a href="javascript:;">9大中药养颜法肌肤变水嫩</a></li>
+							<li><a href="javascript:;">9大中药养颜法肌肤变水嫩</a></li>
+							<li><a href="javascript:;">9大中药养颜法肌肤变水嫩</a></li>
+						</ul>
+					</div>
+					<div class="rightBox">
+						<ul class="allList">
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+							<li><a href="javascript:;">女性易患乳腺癌是什么年龄</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="mid6 mid7 clearfix">
+				<div class="left clearfix">
+					<div class="nav1">
+						<span>美体瘦身</span><a href="javascript:;">塑身</a><a href="javascript:;">减肥</a><a href="javascript:;">美体</a><a href="javascript:;">健身</a><a href="javascript:;" style="border:none;">曲线</a><em>more<i></i></em>
+					</div>
+					<div class="leftBox">
+						<a href="javascript:;" class="img"><img src="beautys1.jpg" alt=""></a>
+						<div class="ads">
+							<p><a href="javascript:;" class="ad">夏季宅女8步修炼完美身材</a></p>
+							<a href="javascript:;" class="ad ad1">夏季宅女8步修炼完美身材</a><br><a href="javascript:;" class="ad ad2">夏季宅女8步修炼完美身材</a>
+						</div>
+					</div>
+					<div class="rightBox">
+						<h3>瘦腹的几个简单小妙招</h3>
+						<ul class="ssList">
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+							<li><a href="javascript:;">减肥误区喝咖啡让胸变小</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="mid">
+					<div class="nav1">
+						<span>瑞丽之星</span><em>more<i></i></em>
+					</div>
+					<a href="javascript:;" class="img"><img src="beautys3.jpg" alt=""></a>
+					<p>快来加入张子萱的朋友圈</p>
+					<ul class="lifeList">
+						<li><a href="javascript:;">遇见微笑，简单的生存法则</a></li>
+						<li><a href="javascript:;">遇见微笑，简单的生存法则</a></li>
+						<li><a href="javascript:;">遇见微笑，简单的生存法则</a></li>
+						<li><a href="javascript:;">遇见微笑，简单的生存法则</a></li>
+					</ul>
+				</div>
+				<div class="right">
+					<div class="nav1">
+						<span>瑞丽之星</span><a href="javascript:;">T台</a><a href="javascript:;" style="border:none;">瑞模</a><em>more<i></i></em>
+					</div>
+					<a href="javascript:;" class="img"><img src="beautys2.jpg" alt=""></a>
+					<p>快来加入张子萱的朋友圈</p>
+					<ul class="lifeList">
+						<li><a href="javascript:;">林志玲过儿童节 游乐场搞怪</a></li>
+						<li><a href="javascript:;">林志玲过儿童节 游乐场搞怪</a></li>
+						<li><a href="javascript:;">林志玲过儿童节 游乐场搞怪</a></li>
+						<li><a href="javascript:;">林志玲过儿童节 游乐场搞怪</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="mid6 mid7 mid8 clearfix">
+				<div class="left clearfix">
+					<div class="nav1">
+						<span>美体瘦身</span><a href="javascript:;">塑身</a><a href="javascript:;">减肥</a><a href="javascript:;">美体</a><a href="javascript:;">健身</a><a href="javascript:;" style="border:none;">曲线</a><em>more<i></i></em>
+					</div>
+					<div class="leftBox">
+						<a href="javascript:;" class="img"><img src="pic11.jpg" alt=""></a>
+						<div class="ads">
+							<p><a href="javascript:;" class="ad">星空梦幻小说有奖征文</a></p>
+							<a href="javascript:;" class="ad ad1">星空梦幻小说有奖征文</a><br><a href="javascript:;" class="ad ad2">星空梦幻小说有奖征文</a><br><a href="javascript:;" class="ad ad2">星空梦幻小说有奖征文</a>
+						</div>
+					</div>
+					<div class="rightBox">
+						<h3>家居版“非诚勿扰”抢票ing</h3>
+						<ul class="ssList">
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护小</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+							<li><a href="javascript:;">炎炎夏日，兰蔻给我完美保护</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="mid">
+					<div class="nav1">
+						<span>瑞丽之星</span><em>more<i></i></em>
+					</div>
+					<a href="javascript:;" class="img"><img src="beautys4.jpg" alt=""></a>
+					<p>美女雨萱最新服饰片（多图）</p>
+					<ul class="lifeList">
+						<li><a href="javascript:;">223：姐妹们的聚会好happy</a></li>
+						<li><a href="javascript:;">223：姐妹们的聚会好happy</a></li>
+						<li><a href="javascript:;">223：姐妹们的聚会好happy</a></li>
+						<li><a href="javascript:;">223：姐妹们的聚会好happy</a></li>
+						<li><a href="javascript:;">223：姐妹们的聚会好happy</a></li>
+					</ul>
+				</div>
+				<div class="right">
+					<div class="nav1">
+						<span>热点调查</span>
+					</div>
+					<div class="dc">
+						<p class="ques">如果找个闺中密友给你生活点滴指导，你愿意她是：</p>
+						<div><a href="javascript:;"></a><span>名人明星</span></div>
+						<div><a href="javascript:;"></a><span>专业编辑</span></div>
+						<div><a href="javascript:;"></a><span>时尚专家</span></div>
+						<div><a href="javascript:;"></a><span>网络达人</span></div>
+						<div><a href="javascript:;"></a><span>其他</span></div>
+						<input type="text" id="ans">
+						<label for="ans">填入你的答案</label>
+						<input type="button" value="提交">
+						<input type="button" value="查看">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
